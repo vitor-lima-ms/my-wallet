@@ -1,13 +1,18 @@
 package modules.income;
 
 // Imports.
+import exceptions.InvalidValueException;
 import models.Taxable;
 import models.Transaction;
 //
 
 public class Income extends Transaction implements Taxable {
     // Construtor.
-    public Income(String date, String description, double value) {
+    public Income(
+            String date,
+            String description,
+            double value
+    ) throws IllegalArgumentException, InvalidValueException {
         super(date, description, value);
     }
     //

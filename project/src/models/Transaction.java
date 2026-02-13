@@ -1,5 +1,9 @@
 package models;
 
+// Imports.
+import exceptions.InvalidValueException;
+//
+
 public abstract class Transaction {
     private String date;
     private String description;
@@ -10,7 +14,19 @@ public abstract class Transaction {
             String date,
             String description,
             double value
-    ) {
+    ) throws IllegalArgumentException, InvalidValueException {
+        if (description.isBlank()) {
+            throw new IllegalArgumentException(
+                    "A descrição deve ser enviada."
+            );
+        }
+
+        if (value <= 0) {
+            throw new InvalidValueException(
+                    "O valor da transação deve ser maior que 0."
+            );
+        }
+
         this.date = date;
         this.description = description;
         this.value = value;
@@ -30,7 +46,15 @@ public abstract class Transaction {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(
+            String description
+    ) throws IllegalArgumentException {
+        if (description.isBlank()) {
+            throw new IllegalArgumentException(
+                    "A descrição deve ser enviada."
+            );
+        }
+
         this.description = description;
     }
 
@@ -38,7 +62,15 @@ public abstract class Transaction {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(
+            double value
+    ) throws InvalidValueException {
+        if (value <= 0) {
+            throw new InvalidValueException(
+                    "O valor da transação deve ser maior que 0."
+            );
+        }
+
         this.value = value;
     }
     //

@@ -1,6 +1,7 @@
 package modules.expense;
 
 // Imports.
+import exceptions.InvalidValueException;
 import models.Transaction;
 //
 
@@ -10,7 +11,7 @@ public class Expense extends Transaction {
             String date,
             String description,
             double value
-    ) {
+    ) throws IllegalArgumentException, InvalidValueException {
         super(date, description, value);
     }
     //
