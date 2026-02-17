@@ -1,56 +1,36 @@
 package modules.mySystem;
 
 // Imports.
+import exceptions.InvalidValueException;
 import java.util.ArrayList;
 
-import exceptions.InvalidValueException;
-import models.Transaction;
 import modules.expense.Expense;
+import modules.fileManager.FileManager;
 import modules.income.Income;
+import models.Transaction;
 //
 
 public class MySystem {
     static void main(String[] args) {
-        // Criando lista de transações.
-        ArrayList<Transaction> transactionsList = new ArrayList<>();
-        //
+        ArrayList<Transaction> transactions = FileManager.loadData();
 
-        // Válida.
+        System.out.println(
+                "Total de transações carregadas: " +
+                transactions.size()
+        );
+
         try {
-            Transaction income01 = new Income(
-                    "2025-02-06",
-                    "Salário",
+            transactions.add(new Income(
+                    "2026-02-06",
+                    "Salario",
                     5000.00
-            );
-            transactionsList.add(income01);
+            ));
         } catch (IllegalArgumentException | InvalidValueException e) {
-            System.out.println(e.getMessage());;
+            e.printStackTrace();
         }
-        //
 
-        // Inválida.
-        try {
-            Transaction expense02 = new Expense(
-                    "2025-02-06",
-                    "Mensalidade Psicóloga",
-                    -180.00
-            );
-            transactionsList.add(expense02);
-        } catch (IllegalArgumentException | InvalidValueException e) {
-            System.out.println(e.getMessage());
-        }
-        //
+        FileManager.saveData(transactions);
 
-        // Exibindo os detalhes.
-        for (
-                int i = 0;
-                i < transactionsList.size();
-                i++
-        ) {
-            Transaction transaction = transactionsList.get(i);
-
-            transaction.showDetails();
-        }
-        //
+        FileManager.generateReport();
     }
 }

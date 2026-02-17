@@ -2,9 +2,14 @@ package models;
 
 // Imports.
 import exceptions.InvalidValueException;
+import java.io.Serial;
+import java.io.Serializable;
 //
 
-public abstract class Transaction {
+public abstract class Transaction implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1l;
+
     private String date;
     private String description;
     private double value;
@@ -76,4 +81,13 @@ public abstract class Transaction {
     //
 
     public abstract void showDetails();
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date='" + date + '\'' +
+                ", description='" + description + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }
